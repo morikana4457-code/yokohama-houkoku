@@ -2,16 +2,28 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+  >
+
   <title>納品報告</title>
 
-  <link rel="icon" type="image/png" href="yokohama_houkoku_icon.png">
-  <link rel="apple-touch-icon" href="yokohama_houkoku_icon.png">
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.webmanifest">
+
+  <!-- アイコン -->
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
 
   <meta name="theme-color" content="#0e2440">
+  <meta name="application-name" content="納品報告">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="納品報告">
+  <meta name="format-detection" content="telephone=no">
 
   <style>
     :root {
@@ -25,19 +37,39 @@
       --radius: 30px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
+    html,
     body {
       margin: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
       min-height: 100vh;
+      min-height: 100dvh;
       background: var(--bg);
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-        "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        Meiryo,
+        sans-serif;
       color: var(--text);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding:
+        max(24px, env(safe-area-inset-top))
+        max(24px, env(safe-area-inset-right))
+        max(24px, env(safe-area-inset-bottom))
+        max(24px, env(safe-area-inset-left));
     }
 
     .wrap {
@@ -96,7 +128,13 @@
       box-shadow: 0 6px 14px rgba(19, 130, 70, 0.24);
     }
 
-    .open-button:hover { background: var(--green-dark); }
+    .open-button:hover {
+      background: var(--green-dark);
+    }
+
+    .open-button:active {
+      transform: translateY(1px);
+    }
 
     .note {
       margin: 0;
@@ -107,13 +145,45 @@
     }
 
     @media (max-width: 640px) {
-      body { padding: 18px; }
-      .card { padding: 38px 24px 32px; border-radius: 26px; }
-      .icon { width: 190px; max-width: 62vw; margin-bottom: 22px; }
-      h1 { font-size: 28px; margin-bottom: 18px; }
-      .lead { font-size: 16px; margin-bottom: 28px; }
-      .open-button { font-size: 22px; padding: 20px 16px; border-radius: 24px; margin-bottom: 28px; }
-      .note { font-size: 16px; }
+      body {
+        padding:
+          max(18px, env(safe-area-inset-top))
+          max(18px, env(safe-area-inset-right))
+          max(18px, env(safe-area-inset-bottom))
+          max(18px, env(safe-area-inset-left));
+      }
+
+      .card {
+        padding: 38px 24px 32px;
+        border-radius: 26px;
+      }
+
+      .icon {
+        width: 190px;
+        max-width: 62vw;
+        margin-bottom: 22px;
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-bottom: 18px;
+      }
+
+      .lead {
+        font-size: 16px;
+        margin-bottom: 28px;
+      }
+
+      .open-button {
+        font-size: 22px;
+        padding: 20px 16px;
+        border-radius: 24px;
+        margin-bottom: 28px;
+      }
+
+      .note {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -121,43 +191,94 @@
 <body>
   <div class="wrap">
     <div class="card">
+
       <img
         class="icon"
-        src="yokohama_houkoku_icon.png"
-        alt="納品報告">
+        src="./icon-512.png"
+        alt="納品報告"
+      >
 
       <h1>納品報告</h1>
 
-      <p class="lead">
+      <p class="lead" id="launchMessage">
         横浜営業所の納品報告アプリを開きます。
       </p>
 
       <a
         id="openAppButton"
         class="open-button"
-        href="https://script.google.com/macros/s/AKfycbwQ81_BAcdPaeBqWhqqcQchRWUXlLzy2FztJmYTTkCudGQjMDRqhSLSN0BwMjsgA068/exec">
+        href="https://script.google.com/macros/s/AKfycbwQ81_BAcdPaeBqWhqqcQchRWUXlLzy2FztJmYTTkCudGQjMDRqhSLSN0BwMjsgA068/exec"
+      >
         納品報告を開く
       </a>
 
       <p class="note">
         ホーム画面から起動した場合も最新の納品報告アプリを開きます。
       </p>
+
     </div>
   </div>
 
   <script>
-    const APP_URL = 'https://script.google.com/macros/s/AKfycbwQ81_BAcdPaeBqWhqqcQchRWUXlLzy2FztJmYTTkCudGQjMDRqhSLSN0BwMjsgA068/exec';
+    const APP_URL =
+      'https://script.google.com/macros/s/AKfycbwQ81_BAcdPaeBqWhqqcQchRWUXlLzy2FztJmYTTkCudGQjMDRqhSLSN0BwMjsgA068/exec';
 
-    document
-      .getElementById('openAppButton')
-      .href = APP_URL;
+    const openAppButton =
+      document.getElementById(
+        'openAppButton'
+      );
 
-    if (
-      window.matchMedia('(display-mode: standalone)').matches ||
-      window.navigator.standalone === true
-    ) {
-      window.location.replace(APP_URL);
+    const launchMessage =
+      document.getElementById(
+        'launchMessage'
+      );
+
+    openAppButton.href =
+      APP_URL;
+
+    /* Service Worker */
+    if ('serviceWorker' in navigator) {
+      window.addEventListener(
+        'load',
+        function() {
+          navigator
+            .serviceWorker
+            .register('./service-worker.js')
+            .catch(
+              function(error) {
+                console.log(
+                  'Service Worker registration failed:',
+                  error
+                );
+              }
+            );
+        }
+      );
+    }
+
+    /* PWAとしてホーム画面から起動した時はApps Scriptへ進む */
+    const isStandalone =
+      window.matchMedia(
+        '(display-mode: standalone)'
+      ).matches ||
+      window.navigator.standalone === true;
+
+    if (isStandalone) {
+      if (launchMessage) {
+        launchMessage.textContent =
+          '納品報告アプリを開いています…';
+      }
+
+      window.setTimeout(
+        function() {
+          window.location.replace(
+            APP_URL
+          );
+        },
+        300
+      );
     }
   </script>
+
 </body>
 </html>

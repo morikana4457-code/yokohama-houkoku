@@ -1,0 +1,25 @@
+{
+  "name": "納品報告｜横浜営業所",
+  "short_name": "納品報告",
+  "description": "森商事 横浜営業所 納品報告アプリ",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#e9efec",
+  "theme_color": "#0f7548",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
